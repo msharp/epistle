@@ -1,4 +1,5 @@
-#!/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os, sys
 import subprocess
