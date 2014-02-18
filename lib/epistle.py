@@ -3,6 +3,7 @@
 
 import os, sys
 import subprocess
+from datetime import datetime
 import ConfigParser
 
 TEMP_FILE = 'tmp'
@@ -42,7 +43,8 @@ class Epistle():
     os.system("cd %s && git pull" % self.epistles_dir)
 
   def git_commit(self, epistle):
-    os.system("cd %s && git add %s && git commit -m 'date:%s'" % (self.epistles_dir,epistle,"TODO:add-datestamp"))
+    deets = (self.epistles_dir, epistle, datetime.now().strftime("%Y%m%d%H%m"))
+    os.system("cd %s && git add %s && git commit -m 'date:%s'" % deets)
 
   def git_push(self):
     os.system("cd %s && git push" % (self.epistles_dir))
