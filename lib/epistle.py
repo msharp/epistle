@@ -85,6 +85,8 @@ class Epistle():
       self.print_help()
     elif arg == "-l":
       self.list_epistles()
+    elif arg == "-p":
+      self.git_push()
     elif arg == "-d":
       self.git_rm(argv[2])
     else:
@@ -101,6 +103,8 @@ class Epistle():
         $ epistle -l              -> list available epistles
 
         $ epistle -d <something>  -> delete an epistle
+
+        $ epistle -p              -> push to the remote repository
 
         $ epistle -h              -> print this help
 
