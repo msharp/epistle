@@ -11,9 +11,11 @@ class Epistle():
   def __init__(self):
     # file system stuff
     self.epistle_dir = os.path.join(os.path.expanduser('~'), ".epistle")
-    self.epistle_cfg = os.path.join(self.epistle_dir, "epistle.ini")
+    self.epistle_cfg = os.path.join(self.epistle_dir, "epistle.cfg")
     self.epistles_dir = os.path.join(self.epistle_dir, "epistles")
-    # read the config
+    self.read_config()
+
+  def read_config(self):
     self.config = ConfigParser.ConfigParser()
     self.config.read(self.epistle_cfg)
 
