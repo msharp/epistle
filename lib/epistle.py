@@ -30,6 +30,10 @@ class Epistle():
     for e in epistles:
       print e
 
+  def view_epistle(self, name):
+    epistle_path = os.path.join(self.epistles_dir,name)
+    os.system("cat %s" % epistle_path)
+    
   def get_epistle(self,name):
     epistle_path = os.path.join(self.epistles_dir,name)
     if not os.path.isfile(epistle_path):
@@ -87,8 +91,12 @@ class Epistle():
       self.print_help()
     elif arg == "-l":
       self.list_epistles()
-    elif arg == "-p":
+    elif arg == "-v":
+      self.view_epistle(argv[2])
+    elif arg == "--push":
       self.git_push()
+    elif arg == "--pull":
+      self.git_pull()
     elif arg == "-d":
       self.git_rm(argv[2])
     else:
@@ -104,9 +112,13 @@ class Epistle():
 
         $ epistle -l              -> list available epistles
 
+        $ epistle -v              -> view an epistle (cat to stdout)
+
         $ epistle -d <something>  -> delete an epistle
 
-        $ epistle -p              -> push to the remote repository
+        $ epistle --push          -> push to the remote repository
+       
+        $ epistle --pull          -> pull from the remote repository
 
         $ epistle -h              -> print this help
 
