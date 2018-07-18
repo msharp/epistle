@@ -1,5 +1,6 @@
 import os
 import subprocess
+import shlex
 import configparser
 from pathlib import Path
 from datetime import datetime
@@ -108,15 +109,24 @@ class Epistle():
             self._compose_epistle(name)
 
     def _compose_epistle(self, name):
+        def vim_with_datestamp(vim, epistle):
+            cmd = f"{vim} +'normal Go' +'r!date' {epistle}"
+            return shlex.split(cmd)
+
         click.echo(f"Using vim from: {self.vim}")
 
         epistle = self.epistle_path(name)
         click.echo(f"Got epistle file: {epistle}")
 
-        # launch vim and wait for exit code
-        subprocess.check_call([self.vim, epistle])
+        # open vim and add a timestamp line
+        cmd = f"{self.vim} +'normal Go' +'r!date' {epistle}"
+        args = shlex.split(cmd)
+        with subprocess.Popen(args) as vs:
+            pass
 
-        # add and commit the changes.
+        click.echo(f"Vim exited with status {vs.returncode}")
+
+        # add and commit the changes
         self.git.add(epistle)
         self.git.commit(f"epistle:{datetime.now().strftime('%Y%m%d%H%m')}")
         self.git.push()

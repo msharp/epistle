@@ -1,3 +1,5 @@
 *.pyc
 TODO
 test/
+dist/
+epistle.egg-info/
